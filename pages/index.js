@@ -2,8 +2,9 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import Banner from "@/components/banner/Banner";
+import NavBar from "@/components/nav/navbar";
+import Card from "@/components/card/card";
 
 export default function Home() {
   return (
@@ -15,11 +16,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Stephlix</h1>
+      <NavBar username="stephen@gmail.com" />
+      <Banner
+        title="300"
+        subTitle="Spartans battle Persians"
+        imgUrl="/static/300.jpg"
+      />
 
-      <Banner />
-      {/* <NavBar />
-      <Card /> */}
+      <Card imgUrl="/static/300.jpg" size="large" />
+      <Card size="medium" />
+      <Card imgUrl="/static/300.jpg" size="small" />
     </div>
   );
 }

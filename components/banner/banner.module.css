@@ -49,7 +49,7 @@
 }
 
 .subTitle {
-  font-size: 1.125rem /* 18px */;
+  font-size: 1.5rem /* 18px, originally 1.125 */;
   line-height: 1.75rem /* 28px */;
   color: var(--white10);
   -webkit-text-stroke: 1px gray; /* width and color */

@@ -7,6 +7,7 @@ import NavBar from "@/components/nav/navbar";
 import Card from "@/components/card/card";
 import SectionCards from "@/components/card/section-cards";
 import { getVideos, getPopularVideos } from "@/lib/videos";
+import { magic } from "@/lib/magic";
 
 export async function getServerSideProps() {
   const historicalEpicVideos = await getVideos("historical movie trailer");

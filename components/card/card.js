@@ -31,6 +31,7 @@ const Card = (props) => {
           src={imgUrl}
           alt="Movie picture"
           layout="fill"
+          sizes="(max-width: 768px) 33vw"
           className={styles.cardImg}
           onError={handleOnError}
         />

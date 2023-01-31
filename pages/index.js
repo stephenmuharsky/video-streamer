@@ -6,15 +6,26 @@ import Banner from "@/components/banner/Banner";
 import NavBar from "@/components/nav/navbar";
 import Card from "@/components/card/card";
 import SectionCards from "@/components/card/section-cards";
-import { getVideos, getPopularVideos } from "@/lib/videos";
+import { getVideos, getPopularVideos, getStaticVideos } from "@/lib/videos";
 import { magic } from "@/lib/magic";
+import videoData from "../data/videos.json";
+import { fetchMyQuery } from "@/lib/db/hasura";
+import { useEffect } from "react";
 
 export async function getServerSideProps() {
-  const historicalEpicVideos = await getVideos("historical movie trailer");
-  const productivityVideos = await getVideos("productivity");
-  const travelVideos = await getVideos("travel");
-  const popularVideos = await getPopularVideos();
-  console.log({ popularVideos });
+  // const historicalEpicVideos = await getVideos("historical movie trailer");
+  // const productivityVideos = await getVideos("productivity");
+  // const travelVideos = await getVideos("travel");
+  // const popularVideos = await getPopularVideos();
+
+  const historicalEpicVideos = getStaticVideos(videoData);
+  const productivityVideos = getStaticVideos(videoData);
+  const travelVideos = getStaticVideos(videoData);
+  const popularVideos = getStaticVideos(videoData);
+
+  //queryHasuraGQL();
+
+  //console.log({ hasuraStuff });
   return {
     //, travelVideos, productivityVideos
     props: {
@@ -32,6 +43,10 @@ export default function Home({
   travelVideos,
   popularVideos,
 }) {
+  useEffect(() => {
+    fetchMyQuery();
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -47,6 +62,7 @@ export default function Home({
           title="300"
           subTitle="Spartans battle Persians"
           imgUrl="/static/300.jpg"
+          videoId="UrIbxk7idYA"
         />
         <div className={styles.sectionWrapper}>
           <SectionCards

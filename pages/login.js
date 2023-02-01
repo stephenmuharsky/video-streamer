@@ -15,27 +15,36 @@ const Login = () => {
 
     console.log({ email });
     if (email) {
-      if (email === "smuharsk@gmail.com") {
-        //route to dashboard
-        try {
-          setIsLoading(true);
-          const didToken = await magic.auth.loginWithMagicLink({ email });
-          console.log({ didToken });
-          if (didToken) {
+      //route to dashboard
+      try {
+        setIsLoading(true);
+        const didToken = await magic.auth.loginWithMagicLink({ email });
+        console.log({ didToken });
+        if (didToken) {
+          const response = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${didToken}`,
+              "Content-Type": "application/json",
+            },
+          });
+
+          const loggedInResponse = await response.json();
+          if (loggedInResponse.done) {
+            console.log({ loggedInResponse });
             router.push("/");
+          } else {
+            setIsLoading(false);
+            setUserMsg("Something went wrong");
           }
-        } catch (error) {
-          setIsLoading(false);
-          console.error("Something went wrong logging in", error);
         }
-      } else {
+      } catch (error) {
         setIsLoading(false);
-        setUserMsg("Oops, something went wrong loggin in.");
+        console.error("Something went wrong logging in", error);
       }
     } else {
-      //show user message
       setIsLoading(false);
-      setUserMsg("Enter a valid email address");
+      setUserMsg("Oops, something went wrong loggin in.");
     }
   };
 
@@ -53,9 +62,10 @@ const Login = () => {
   }, [router]);
 
   const handleOnChangeEmail = (e) => {
+    setUserMsg("");
+    //console.log("event", e)
     const email = e.target.value;
     setEmail(email);
-    setUserMsg("");
   };
 
   return (

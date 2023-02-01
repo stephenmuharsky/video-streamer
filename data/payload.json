@@ -1,0 +1,11 @@
+{
+  "sub": "1234567890",
+  "name": "Stephen",
+  "iat": 1675121887,
+  "exp": 1675726687,
+  "https://hasura.io/jwt/claims": {
+    "x-hasura-allowed-roles": ["user", "admin"],
+    "x-hasura-default-role": "user",
+    "x-hasura-user-id": "bob sagatawa"
+  }
+}

@@ -1,16 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import Banner from "@/components/banner/Banner";
 import NavBar from "@/components/nav/navbar";
-import Card from "@/components/card/card";
 import SectionCards from "@/components/card/section-cards";
 import { getVideos, getPopularVideos, getStaticVideos } from "@/lib/videos";
-import { magic } from "@/lib/magic";
 import videoData from "../data/videos.json";
-import { fetchMyQuery } from "@/lib/db/hasura";
-import { useEffect } from "react";
 
 export async function getServerSideProps() {
   // const historicalEpicVideos = await getVideos("historical movie trailer");
@@ -43,10 +38,6 @@ export default function Home({
   travelVideos,
   popularVideos,
 }) {
-  useEffect(() => {
-    fetchMyQuery();
-  }, []);
-
   return (
     <div className={styles.container}>
       <Head>

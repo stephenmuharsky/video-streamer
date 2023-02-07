@@ -8,15 +8,17 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    async function routeTo() {
+    const handleLoggedIn = async () => {
       const isLoggedIn = await magic.user.isLoggedIn();
       if (isLoggedIn) {
+        // route to /
         router.push("/");
       } else {
+        // route to /login
         router.push("/login");
       }
-    }
-    routeTo();
+    };
+    handleLoggedIn();
   }, []);
 
   useEffect(() => {

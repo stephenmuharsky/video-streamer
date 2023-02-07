@@ -1,22 +1,50 @@
 import Head from "next/head";
-import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import Banner from "@/components/banner/Banner";
 import NavBar from "@/components/nav/navbar";
 import SectionCards from "@/components/card/section-cards";
-import { getVideos, getPopularVideos, getStaticVideos } from "@/lib/videos";
+import {
+  getVideos,
+  getPopularVideos,
+  getStaticVideos,
+  getWatchItAgainVideos,
+} from "@/lib/videos";
 import videoData from "../data/videos.json";
+import { verifyToken } from "@/lib/utils";
+import { useRedirectUser } from "@/utils/redirectUser";
 
-export async function getServerSideProps() {
-  // const historicalEpicVideos = await getVideos("historical movie trailer");
-  // const productivityVideos = await getVideos("productivity");
-  // const travelVideos = await getVideos("travel");
-  // const popularVideos = await getPopularVideos();
+export async function getServerSideProps(context) {
+  const { userId, token } = await useRedirectUser(context);
+  if (!userId) {
+    return {
+      props: {},
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  // if (!userId) {
+  //   return {
+  //     props: {},
+  //     redirect: {
+  //       destination: "/login",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
+  ``;
+  const historicalEpicVideos = await getVideos("historical movie trailer");
+  const productivityVideos = await getVideos("productivity videos");
+  const travelVideos = await getVideos("travel");
+  const popularVideos = await getPopularVideos();
 
-  const historicalEpicVideos = getStaticVideos(videoData);
-  const productivityVideos = getStaticVideos(videoData);
-  const travelVideos = getStaticVideos(videoData);
-  const popularVideos = getStaticVideos(videoData);
+  // const historicalEpicVideos = getStaticVideos(videoData);
+  // const productivityVideos = getStaticVideos(videoData);
+  // const travelVideos = getStaticVideos(videoData);
+  // const popularVideos = getStaticVideos(videoData);
+
+  const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
 
   //queryHasuraGQL();
 
@@ -28,6 +56,7 @@ export async function getServerSideProps() {
       productivityVideos,
       travelVideos,
       popularVideos,
+      watchItAgainVideos,
     },
   };
 }
@@ -37,6 +66,7 @@ export default function Home({
   productivityVideos,
   travelVideos,
   popularVideos,
+  watchItAgainVideos = [],
 }) {
   return (
     <div className={styles.container}>
@@ -61,6 +91,12 @@ export default function Home({
             videos={historicalEpicVideos}
             size={"large"}
           />
+          <SectionCards
+            title="Watch it again"
+            videos={watchItAgainVideos}
+            size={"small"}
+          />
+
           <SectionCards
             title="Productivity"
             videos={productivityVideos}

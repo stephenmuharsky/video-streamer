@@ -10,7 +10,6 @@ import {
   getWatchItAgainVideos,
 } from "@/lib/videos";
 import videoData from "../data/videos.json";
-import { verifyToken } from "@/lib/utils";
 import { useRedirectUser } from "@/utils/redirectUser";
 
 export async function getServerSideProps(context) {

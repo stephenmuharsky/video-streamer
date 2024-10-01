@@ -1,4 +1,4 @@
-This a Netflix styles Next.js project that integrates with magic.auth for authorization, Hasura.io (GraphQL Client) for data storage, and the YouTube API for retrieving videos.
+This a Netflix styles Next.js project that integrates with magic.auth for authorization, Hasura.io (GraphQL Client), and the YouTube API for retrieving videos.
 
 Upon authentication, a JWT token is generated, which is what links the user to the datastore.
 
